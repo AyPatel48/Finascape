@@ -1,0 +1,25 @@
+
+
+// Multi-Year Tax Calculation with Life Events
+function calculateMultiYearTax(income, deductions, lifeEvents) {
+    let totalTax = 0;
+
+    lifeEvents.forEach(event => {
+        income += event.incomeChange || 0;
+        deductions += event.deductionBonus || 0;
+        const yearlyTax = calculateFederalTax(income) + calculateProvincialTax(income) - deductions;
+        totalTax += yearlyTax;
+    });
+
+    return totalTax;
+}
+
+// Life Events Array
+const lifeEvents = [
+    { incomeChange: 2000, deductionBonus: 500 },
+    { incomeChange: -1500, deductionBonus: 1000 },
+    { incomeChange: 0, deductionBonus: 0 }
+];
+
+// Example Usage
+const finalTax = calculateMultiYearTax(50000, 2000, lifeEvents);

@@ -1,0 +1,26 @@
+
+
+// Deduction with Audit Risk
+function addDeductionWithRisk(deductionAmount, baseAuditRisk) {
+    const auditRiskIncrement = deductionAmount * 0.05; // 5% increase per dollar
+    return Math.min(1, baseAuditRisk + auditRiskIncrement); // Cap at 100%
+}
+
+// Audit Check Function
+function auditCheck(auditRisk) {
+    return Math.random() < auditRisk; // Random audit based on risk
+}
+
+// Tax and Deductions with Audit
+function calculateTaxWithAudit(deductions, income) {
+    const baseTax = calculateFederalTax(income) + calculateProvincialTax(income);
+    const totalDeductions = Object.values(deductions).reduce((sum, deduction) => sum + deduction, 0);
+    const auditRisk = addDeductionWithRisk(totalDeductions, 0.1); // 10% base risk
+
+    if (auditCheck(auditRisk)) {
+        const penalty = totalDeductions * 0.5; // 50% penalty
+        return baseTax - (totalDeductions - penalty);
+    } else {
+        return baseTax - totalDeductions;
+    }
+}

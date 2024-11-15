@@ -1,0 +1,22 @@
+
+
+// Tax Credit Application with Order
+function applyCredits(educationCredit, medicalCredit, familyCredit, order) {
+    const credits = { education: educationCredit, medical: medicalCredit, family: familyCredit };
+    let totalCredits = 0;
+
+    order.forEach(credit => {
+        totalCredits += credits[credit];
+    });
+
+    // Apply bonus if optimal order is chosen
+    if (JSON.stringify(order) === JSON.stringify(["education", "family", "medical"])) {
+        totalCredits *= 1.1; // 10% bonus for optimal order
+    }
+    
+    return totalCredits;
+}
+
+// Example Usage
+const order = ["education", "family", "medical"];
+const finalCredits = applyCredits(500, 300, 200, order);
